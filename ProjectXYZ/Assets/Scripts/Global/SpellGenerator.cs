@@ -57,7 +57,7 @@ namespace Player
 
             // From http://clearcutgames.net/home/?p=437;
             //-----
-            //It seems weird to me however because we destroy our gameObject and then we attach a class that depends on that to the instance?
+            //It seems weird to me because we destroy our gameObject and then we attach a class that depends on that to the instance?
             if (Instance != null && Instance != this)
             {
                 Destroy(gameObject);
@@ -103,7 +103,7 @@ namespace Player
 
             Debug.Assert(spellbook.ContainsKey(name.ToString()), "CRITICAL ERROR: Given Element Combination "+name.ToString() +" is not a valid key.");
 
-            sl = (SpellLogic)Instantiate(spellbook[name.ToString()], Vector3.zero, Quaternion.identity);
+            sl = Instantiate(spellbook[name.ToString()]);
             sl.SetElements(elements); // we might need to copy that when shared amongst players.
             RaiseNewSpellGenerated(sl);
             return sl;
@@ -122,7 +122,7 @@ namespace Player
         {
             for (int i = 0; i < elements.Count; i++)
             {
-                name.Append(elements[i].Name.ToString());
+                name.Append(elements[i].ToString());
             }
         }
 

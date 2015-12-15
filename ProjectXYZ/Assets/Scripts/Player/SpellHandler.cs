@@ -68,8 +68,7 @@ namespace Player
                 ChargeTime += 0.05f;
             }
 
-            currentSpell.transform.position = this.transform.position;
-            currentSpell.transform.Translate(0, 1.5f, 1.5f); // Move it a bit outside; This should be changed of course.
+
             currentSpell.SetDamage(ChargeTime, 1); // Ramp = 1;
             currentSpell.gameObject.SetActive(true); // Turn it on.
 

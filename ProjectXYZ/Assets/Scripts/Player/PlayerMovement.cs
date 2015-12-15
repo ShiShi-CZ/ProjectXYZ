@@ -10,13 +10,18 @@ public class PlayerMovement : MonoBehaviour {
 
 
     Rigidbody rb;
-	void Awake () {
+	void Awake () { 
         rb = GetComponent<Rigidbody>();
 	}
 	
 	// Unoptimized
-	void FixedUpdate () {
-        MoveAndTurn();
+	void Update () {
+        if (Input.GetMouseButtonDown(3))
+        {
+            Move();
+        }
+
+        Turn();
 	}
 
     private void Animate()
@@ -24,24 +29,13 @@ public class PlayerMovement : MonoBehaviour {
         //throw new NotImplementedException();
     }
 
-    private void MoveAndTurn()
+    private void Move()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hitInfo;
-        Vector3 lookAt = Vector3.zero;
+        
+    }
 
-        if (Physics.Raycast(ray, out hitInfo))
-        {
-            lookAt = hitInfo.point - transform.position;
-            lookAt.y = 0;
-            transform.LookAt(transform.position + lookAt, Vector3.up);
-            
-            if(Input.GetMouseButtonDown(0))
-            {
-                rb.AddForce(lookAt.normalized*1000000);
-            }
-
-        }
+    private void Turn()
+    {
 
     }
 

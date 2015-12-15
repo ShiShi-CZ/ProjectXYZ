@@ -41,11 +41,19 @@ namespace Spellsystem
         internal SpellType Spelltype;
         internal SpellForm Spellform;
 
+
+        /// <summary>
+        /// This should be the bone/socket of the staff for example; Set it in the editor.
+        /// </summary>
+        public Transform SpellPosition;
+
         protected virtual void Awake()
         {
             vfx = GetComponent<VFXHandler>();
             Debug.Assert(vfx != null, "WARNING: VFXHandler is not part of this Prefab, but it needs to.");
             StartCoroutine("CountToDeath");
+            transform.rotation = SpellPosition.rotation;
+            transform.position = SpellPosition.position;
         }
 
         public void SetDamage(float charge, int ramp)

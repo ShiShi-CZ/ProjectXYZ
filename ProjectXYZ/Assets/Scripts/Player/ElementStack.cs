@@ -50,7 +50,7 @@ namespace Player
 
             Element opposingElement = elements.Find((Element otherElement) =>
             {
-                return element.OpposingElementName == otherElement.Name; //Find opposing Element
+                return element.OpposingElementName == otherElement.ElementType; //Find opposing Element
         });
 
 

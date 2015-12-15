@@ -16,19 +16,19 @@ namespace Spellsystem
     public class Element : IComparable
     {
 
-        public Element(ElementType name, ElementType opposingElementName, short priority, Color buttonColor)
+        public Element(ElementType elementType, ElementType opposingElementName, short priority, Color buttonColor)
         {
             OpposingElementName = opposingElementName;
             Priority = priority;
 
-            Name = name;
+            ElementType = elementType;
         }
 
         public Element()
         {
 
             OpposingElementName = ElementType.Default;
-            Name = ElementType.Default;
+            ElementType = ElementType.Default;
             Priority = 0;
         }
 
@@ -36,13 +36,20 @@ namespace Spellsystem
         public float BaseDamage { get; private set; }
         public ElementType OpposingElementName { get; private set; }
         public short Priority { get; private set; }
-        public ElementType Name { get; private set; }
+
+
+        public ElementType ElementType { get; private set; }
 
         public int CompareTo(object obj)
         {
             Debug.Assert(obj is Element, "CompareTo: Object was not a type of 'Element'");
             Element element = obj as Element;
             return Priority.CompareTo(element.Priority);
+        }
+
+        public override string ToString()
+        {
+            return ElementType.ToString();
         }
     }
 }
