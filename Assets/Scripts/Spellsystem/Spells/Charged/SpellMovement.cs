@@ -6,6 +6,8 @@ namespace Spellsystem
     /// <summary>
     /// Handles the movement of a spell.
     /// </summary>
+    /// 
+    [RequireComponent(typeof(Rigidbody))]
     public class SpellMovement : MonoBehaviour
     {
         Rigidbody rb;

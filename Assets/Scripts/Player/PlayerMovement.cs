@@ -6,6 +6,9 @@ using System;
 /// Controls the Movement of the player. This class is unfinished and I have not the best Unity API Skills atm. 
 /// Someone else should do it.
 /// </summary>
+/// 
+
+[RequireComponent(typeof(Rigidbody))]
 public class PlayerMovement : MonoBehaviour {
 
 

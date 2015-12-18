@@ -9,14 +9,17 @@ namespace Player
     /// Handles all types of spells. Continuous, Charged, Burst. 
     /// </summary>
     public class SpellHandler : MonoBehaviour
-    { 
-        public int MaxChargeTime;
-        float ChargeTime;
-        bool charge = false;
+    {
 
+        #region Editor
+        public int MaxChargeTime;
         public int MaxRamp;
         public int RampStep;
         public int RampInterval;
+        #endregion
+
+        float ChargeTime;
+        bool charge = false;
         int Ramp;
         
 
@@ -38,14 +41,14 @@ namespace Player
         void newSpellGenerated(SpellLogic sl)
         {
             currentSpell = sl;
-            if (sl.Spelltype == SpellType.Charged)
+            if (sl.SpellInformation.Spelltype == SpellType.Charged)
             {
                 // Set IsCharging() 
                 charge = true;
                 StartCoroutine("Charge");
             }
 
-            else if (sl.Spelltype == SpellType.Continuous)
+            else if (sl.SpellInformation.Spelltype == SpellType.Continuous)
             {
                 // Set Animation based on the Spellform like Spray. If the number of animations grows, we can add a Dictionary that contains Delegates, so it also has constant time.
                 continuous = true;
