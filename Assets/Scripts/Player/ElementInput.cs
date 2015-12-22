@@ -3,6 +3,8 @@ using Spellsystem;
 
 namespace Player
 {
+    [RequireComponent(typeof(ElementStack))]
+    [RequireComponent(typeof(SpellHandler))]
     public class ElementInput : MonoBehaviour
     {
 

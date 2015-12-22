@@ -16,50 +16,39 @@ namespace Spellsystem
     /// <summary>
     /// Base class for every Spell in game. 
     /// To create a new Spell inherit from this. This should only contains the logic. Movement etc. should be handled in component class. 
-    /// 
-    /// TODO: There is currently redundancy because you have to create prefabs like DeathBeam or FireDeathbeam. However this should be avoided.
-    ///       Idea: VFXHandler plays a Spellsystem (located in a pool - which could also be global - of possible Systems) based on the two least important elements. (Like Fire and Death)
-    /// 
     /// </summary>
+    /// 
+
+    
     public abstract class SpellLogic : MonoBehaviour
     {
 
-        protected VFXHandler vfx;
         public delegate void SpellExpiredHandler(object sender, EventArgs e);
         public event SpellExpiredHandler SpellExpired;
-        
-        protected Damage Damage;
 
+        public SpellInformation SpellInformation;
+       
         /// <summary>
-        /// Actual Lifetime of a spell. Controls how long the spell can be seen on screen.
+        /// Actual Lifetime of a spell. Controls how long the spell can be seen on screen. Editor
         /// </summary>
         public int LifetimeInSeconds;
 
         /// <summary>
-        /// Internal so its not visible for the editor
+        /// This should be the bone/socket of the staff for example.
         /// </summary>
-        internal SpellType Spelltype;
-        internal SpellForm Spellform;
-
-
-        /// <summary>
-        /// This should be the bone/socket of the staff for example; Set it in the editor.
-        /// </summary>
-        public Transform SpellPosition;
+        public Transform StaffTransform { get; set; }
 
         protected virtual void Awake()
         {
-            vfx = GetComponent<VFXHandler>();
-            Debug.Assert(vfx != null, "WARNING: VFXHandler is not part of this Prefab, but it needs to.");
             StartCoroutine("CountToDeath");
-            transform.rotation = SpellPosition.rotation;
-            transform.position = SpellPosition.position;
+            transform.rotation = StaffTransform.rotation;
+            transform.position = StaffTransform.position;
         }
 
         public void SetDamage(float charge, int ramp)
         {
-            Damage.ChargeTime = charge;
-            Damage.Ramp = ramp;
+            SpellInformation.ChargeTime = charge;
+            SpellInformation.Ramp = ramp;
         }
 
         /// <summary>
@@ -77,7 +66,7 @@ namespace Spellsystem
             IDamageable damageReceiver = gobject.GetComponent(typeof(IDamageable)) as IDamageable;
             if (damageReceiver != null)
             {
-                damageReceiver.RecvDamage(Damage);
+                damageReceiver.RecvDamage(SpellInformation);
             }
         }
 
@@ -97,7 +86,7 @@ namespace Spellsystem
 
         public void SetElements(List<Element> elements)
         {
-            Damage.Elements = elements;
+            SpellInformation.Elements = elements;
         }
 
         /// <summary>

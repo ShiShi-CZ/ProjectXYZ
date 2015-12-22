@@ -12,25 +12,27 @@ namespace Spellsystem
     public sealed class Spray : SpellLogic, VFXHandler
     {
 
+        ParticleSystem ps;
+
         protected override void Awake()
         {
             base.Awake();
-            Spelltype = SpellType.Continuous;
-            Spellform = SpellForm.Spray;
-            Damage.Spellform = Spellform;
+            SpellInformation.Spelltype = SpellType.Continuous;
+            SpellInformation.Spellform = SpellForm.Spray;
         }
 
 
         public override void ApplyEffect(GameObject gobject)
         {
             IStatusEffect effectReceiver = gobject.GetComponent(typeof(IStatusEffect)) as IStatusEffect;
-            effectReceiver.RecvEffect(Damage, Spelltype);
+            effectReceiver.RecvEffect(SpellInformation);
         }
 
         public override void Kill()
         {
             // Wanna add some visual effects here? Call DeathVisuals(). Be sure to implement it first.
             RaiseSpellExpired();
+            Destroy(ps);
             Destroy(this.gameObject);
         }
 
@@ -39,31 +41,11 @@ namespace Spellsystem
             // No death visuals here.
         }
 
+
         public void StartVisuals()
-        {
-            bool customSpell = false;
-            //Decide here if you need a custom Spell Particles here, e.g. in MWW QFF is a steam spray, not a Water + Fire spray.
-            /*Start defining
-
-
-
-            End */
-            
-            if (!customSpell)
-            {
-                ParticleSystem first = Instantiate(VFXPool.Instance.Sprays[Damage.Elements[0].ToString()], transform.position, transform.rotation) as ParticleSystem;
-                ParticleSystem second = Instantiate(VFXPool.Instance.Sprays[Damage.Elements[1].ToString()], transform.position, transform.rotation) as ParticleSystem;
-
-                first.transform.SetParent(transform);
-                second.transform.SetParent(transform);
-            }
-
-            if (customSpell)
-            {
-                ParticleSystem ps = Instantiate(VFXPool.Instance.Sprays[Damage.Elements[0].ToString() + Damage.Elements[1].ToString()], transform.position, transform.rotation) as ParticleSystem;
-                ps.transform.SetParent(transform);
-            }
-            
+        { 
+            ps = Instantiate(VFXPool.Instance.Sprays[SpellInformation.Elements[0].ToString()], transform.position, transform.rotation) as ParticleSystem;
+            ps.transform.SetParent(transform);  
         }
     }
 }

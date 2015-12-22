@@ -7,10 +7,9 @@ namespace Spellsystem
     public interface IStatusEffect
     {
         /// <summary>
-        /// Receives effect based on the input
+        /// This function handles the effect input / state change
         /// </summary>
-        /// <param name="damage">The incoming damage</param>
-        /// <param name="type">The damage type, for example Continuous</param>
-        void RecvEffect(Damage damage, SpellType type);
+        /// <param name="information">necessary data</param>
+        void RecvEffect(SpellInformation information);
     }
 }

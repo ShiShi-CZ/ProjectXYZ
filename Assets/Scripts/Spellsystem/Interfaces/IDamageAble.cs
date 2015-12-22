@@ -7,9 +7,9 @@ namespace Spellsystem
     public interface IDamageable
     {
         /// <summary>
-        /// Receive damage based on the input. 
+        /// This function handles the damage input
         /// </summary>
-        /// <param name="damage">The incoming damage</param>
-        void RecvDamage(Damage damage);
+        /// <param name="information">necessary data</param>
+        void RecvDamage(SpellInformation information);
     }
 }
